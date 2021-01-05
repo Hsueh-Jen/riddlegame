@@ -9,17 +9,16 @@
     <!-- Required Stylesheets -->
     <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
     <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
-
+    <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
     <!-- <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.css" /> -->
-
 
     <!-- Required scripts -->
     <script src="https://unpkg.com/vue"></script>
     <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
-
     <!-- <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script> -->
-
     <style>
+        @import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+
         * {
             padding: 0;
             margin: 0;
@@ -31,19 +30,14 @@
 
         .number-col {
             font-size: 5vw;
-            display: table-cell;
-            width: 250px;
-            /* padding: 10px; */
+            font-family: 'Orbitron', sans-serif;
             border: 3px outset darkgray;
-            border-radius: 1px;
+            border-radius: 20px;
             vertical-align: middle;
-
-
         }
 
         #page-riddle {
             background-image: url("pattern.jpg");
-            /* background-image: url("dirty.jpg"); */
             background-repeat: repeat;
             height: 100vh;
         }
@@ -56,6 +50,11 @@
         .shake {
             animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
             transform: translate3d(0, 0, 0);
+            opacity: 0.5;
+        }
+
+        .danger {
+            background-color: coral;
         }
 
         @keyframes shake {
@@ -82,66 +81,72 @@
             }
         }
 
-        /* .btn-change {
-            font-size: 5vw;
-        } */
-        button:focus {outline:0;}
+        button:focus {
+            outline: 0;
+        }
 
         .btn-change {
-  border-radius: 5px;
-  padding: 5px 25px;
-  font-size: 40px;
-  text-decoration: none;
-  margin: 20px;
-  color: #fff;
-  position: relative;
-  display: inline-block;
-  /* border: none; */
-  border: 2px solid darkgray;
+            border-radius: 5px;
+            padding: 5px 25px;
+            font-size: 40px;
+            text-decoration: none;
+            margin: 20px;
+            /* color: #fff; */
+            position: relative;
+            display: inline-block;
+            /* border: none; */
+            border: 2px solid darkgray;
 
-}
+        }
 
-.btn-change:active {
-  transform: translate(0px, 5px);
-  -webkit-transform: translate(0px, 5px);
-  box-shadow: 0px 1px 0px 0px;
-}
+        .btn-change:active {
+            transform: translate(0px, 5px);
+            -webkit-transform: translate(0px, 5px);
+            box-shadow: 0px 1px 0px 0px;
+            background: white;
+        }
 
-.blue {
-  background-color: #55acee;
-  box-shadow: 0px 5px 0px 0px #3C93D5;
-}
+        .btn-unlock {
+            border-radius: 5px;
+            padding: 5px 25px;
+            font-size: 40px;
+            text-decoration: none;
+            margin: 20px;
+            /* color: #fff; */
+            position: relative;
+            display: inline-block;
+            /* border: none; */
+            border: 2px solid darkgray;
+            border-radius: 100px;
+            padding: 4vh;
+            color: #55acee;
+            box-shadow: 0px 5px 0px 0px gray;
+        }
 
-.blue:hover {
-  background-color: #6FC6FF;
-}
+        .btn-unlock:active {
+            transform: translate(0px, 5px);
+            -webkit-transform: translate(0px, 5px);
+            box-shadow: 0px 1px 0px 0px;
+            background: white;
+        }
 
-/* .orange {
-  background-color: #e67e22;
-  box-shadow: 0px 5px 0px 0px #CD6509;
-}
+        .congrats {
+            font-family: 'cwTeXYen', sans-serif;
+            padding: 2vh;
+            box-shadow: 0px 5px 0px 0px gray;
+            width: 100%;
+            background-color: whitesmoke;
+            border-radius: 10px;
+            border: 2px solid darkgray;
+        }
 
-.orange:hover {
-  background-color: #FF983C;
-} */
-
-.white {
-  color: #55acee;
-  background-color: white;
-  box-shadow: 0px 5px 0px 0px gray;
-}
-
-.white:hover {
-  background-color: #F4F4F4;
-}
-
+        .white {
+            color: #55acee;
+            box-shadow: 0px 5px 0px 0px gray;
+        }
 
         .title {
-            /* background: lightblue; */
-            /* background-image: url("dirty.jpg"); */
             margin-top: 30px;
-            /* border: 5px solid gray; */
-            /* border: 2px solid #55acee; */
             transform: rotate(-1deg);
         }
 
@@ -158,16 +163,21 @@
             opacity: 0;
         }
 
-        .tabs{
-          opacity: 0;  
-          /* background:red; */
+        .tabs {
+            opacity: 0;
         }
 
-        .tabs:hover{
-          opacity: 1;  
-          /* background:red; */
+        .tabs:hover {
+            opacity: 1;
         }
 
+        .back-btn {
+            opacity: 0.1;
+        }
+
+        .back-btn:hover {
+            opacity: 1;
+        }
     </style>
 </head>
 
@@ -179,22 +189,29 @@
 
         <transition name="fade">
 
-            <div id="page-riddle" v-show="page==1">
+            <div id="page-riddle" v-show="page==1" :class="{'shake' : animated}">
                 <b-container fluid>
                     <b-row>
                         <h1 class="title text-center w-100 "><img src="title.png" alt=""></h1>
                     </b-row>
+                    <b-row class="m-2"></b-row>
+
                 </b-container>
 
-                <b-container>
+
+                <b-container class="centerking">
                     <b-row>
-                        <b-col class="text-center"><button v-on:click="changePwd(0,'add')" class="btn-change white">▲</button>
+                        <b-col class="text-center"><button v-on:click="changePwd(0,'add')"
+                                class="btn-change white">▲</button>
                         </b-col>
-                        <b-col class="text-center"><button v-on:click="changePwd(1,'add')" class="btn-change white">▲</button>
+                        <b-col class="text-center"><button v-on:click="changePwd(1,'add')"
+                                class="btn-change white">▲</button>
                         </b-col>
-                        <b-col class="text-center"><button v-on:click="changePwd(2,'add')" class="btn-change white">▲</button>
+                        <b-col class="text-center"><button v-on:click="changePwd(2,'add')"
+                                class="btn-change white">▲</button>
                         </b-col>
-                        <b-col class="text-center"><button v-on:click="changePwd(3,'add')" class="btn-change white">▲</button>
+                        <b-col class="text-center"><button v-on:click="changePwd(3,'add')"
+                                class="btn-change white">▲</button>
                         </b-col>
                     </b-row>
 
@@ -214,39 +231,32 @@
                     </b-row>
 
                     <b-row>
-                        <b-col class="text-center"><button v-on:click="changePwd(0,'drop')" class="btn-change white">▼</button>
+                        <b-col class="text-center"><button v-on:click="changePwd(0,'drop')"
+                                class="btn-change white">▼</button>
                         </b-col>
-                        <b-col class="text-center"><button v-on:click="changePwd(1,'drop')" class="btn-change white">▼</button>
+                        <b-col class="text-center"><button v-on:click="changePwd(1,'drop')"
+                                class="btn-change white">▼</button>
                         </b-col>
-                        <b-col class="text-center"><button v-on:click="changePwd(2,'drop')" class="btn-change white">▼</button>
+                        <b-col class="text-center"><button v-on:click="changePwd(2,'drop')"
+                                class="btn-change white">▼</button>
                         </b-col>
-                        <b-col class="text-center"><button v-on:click="changePwd(3,'drop')" class="btn-change white">▼</button>
+                        <b-col class="text-center"><button v-on:click="changePwd(3,'drop')"
+                                class="btn-change white">▼</button>
                         </b-col>
                     </b-row>
 
 
-                    <b-row class="m-3"></b-row>
+                    <b-row class="m-1"></b-row>
 
                     <b-row>
-
-                        <!-- <b-col class="display-1 text-right">  </b-col> -->
-
-                        <b-col class="text-center"> 
-                            <!-- <span style="font-size: 50px; color:gray">〉〉〉</span> -->
-                        <button class="btn btn-lg border-info p-3"
-                                :class="{'shake' : animated, 'btn-danger':animated}" v-on:click="unlock">
-                                <!-- <b-icon icon="unlock-fill" font-scale="2"></b-icon> -->
+                        <b-col class="text-center">
+                            <button class="btn-unlock" v-on:click="unlock" :class="{'danger' : animated}">
                                 <img src="unlock.png" height=70 alt="">
-                                <!-- UNLOCK -->
-                            </button> 
-                            <!-- <span style="font-size: 50px;">〈〈〈</span> -->
+                            </button>
                         </b-col>
-
-
                     </b-row>
 
                     <b-row>
-                        <!-- {{teamIndex}} -->
                         <b-col>
                             <b-tabs v-model="teamIndex" class="tabs fixed-bottom">
                                 <b-tab title="1" active></b-tab>
@@ -277,26 +287,23 @@
         <transition name="fade">
 
             <div id="page-win" v-show="page==2">
+
+
                 <b-container>
-                    <b-col><button v-on:click="page=1" class="btn">回上頁</button></b-col>
+                    <b-row><button v-on:click="page=1" class="back-btn btn btn-lg align-right">🔙 回上頁</button>
+                    </b-row>
 
                     <b-row class="text-center">
                         <b-col><img src="medience.png" style="width:40vw" alt=""></b-col>
-                        <h2 class=" text-center bg-light w-100 p-3">恭喜！ 第 {{teamIndex+1}} 小隊，獲得疫苗 La</h2>
+                        <h2 class="congrats display-4 text-center">恭喜！ 第 {{teamIndex+1}} 小隊，獲得疫苗 La</h2>
                     </b-row>
 
                 </b-container>
             </div>
         </transition>
 
-        <!-- 全境擴散La -->
-
         <script>
-            // https://colorlib.com/wp/bootstrap-buttons/
-            // abstract-hexagons-pattern-medical
-            // transition > https://jsfiddle.net/jx52bfpc/2/
-            // const clickSound = new Audio('click.mp3');
-            // clickSound.play();
+            const buzzerSound = new Audio('buzzer.mp3');
 
             new Vue({
                 el: '#app',
@@ -325,7 +332,6 @@
                 },
                 methods: {
                     changePwd: function (index, action) {
-
                         if (action == "add") {
                             if (this.inputedPwd[index] == 9) {
                                 this.$set(this.inputedPwd, index, 0)
@@ -351,10 +357,11 @@
                         if (count == 4) { // 4 digit password are all correct
                             self.page = 2; // change to page 2
                         } else {
+                            buzzerSound.play();
                             self.animated = true
                             setTimeout(() => {
                                 self.animated = false
-                            }, 300)
+                            }, 400)
                         }
                     },
                 }

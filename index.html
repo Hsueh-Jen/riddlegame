@@ -5,17 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>博士の實驗室</title>
-    <!-- <script src="https://unpkg.com/vue"></script> -->
     <!-- Required Stylesheets -->
     <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
     <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
     <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
-    <!-- <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.css" /> -->
-
     <!-- Required scripts -->
-    <script src="https://unpkg.com/vue"></script>
+    <!-- vue2 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
-    <!-- <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script> -->
     <style>
         @import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
 
@@ -109,10 +106,8 @@
             font-size: 40px;
             text-decoration: none;
             margin: 20px;
-            /* color: #fff; */
             position: relative;
             display: inline-block;
-            /* border: none; */
             border: 2px solid darkgray;
 
         }
@@ -130,19 +125,19 @@
             font-size: 40px;
             text-decoration: none;
             margin: 20px;
-            /* color: #fff; */
             position: relative;
             display: inline-block;
-            /* border: none; */
             border: 2px solid darkgray;
             border-radius: 100px;
             padding: 4vh;
             color: var(--ikalabule);
             box-shadow: 0px 5px 0px 0px gray;
         }
-.btn-unlock:hover{
-background:lightyellow;
-}
+
+        .btn-unlock:hover {
+            background: lightyellow;
+        }
+
         .btn-unlock:active {
             transform: translate(0px, 5px);
             -webkit-transform: translate(0px, 5px);
@@ -158,7 +153,7 @@ background:lightyellow;
             background-color: whitesmoke;
             border-radius: 10px;
             border: 2px solid darkgray;
-            margin-top:65vh;
+            margin-top: 65vh;
         }
 
         .white {
@@ -177,10 +172,7 @@ background:lightyellow;
         }
 
         .fade-enter,
-        .fade-leave-to
-
-        /* .fade-leave-active below version 2.1.8 */
-            {
+        .fade-leave-to {
             opacity: 0;
         }
 
@@ -207,7 +199,6 @@ background:lightyellow;
             right: 0;
             margin-left: auto;
             margin-right: auto;
-
             transform: translatey(0px);
             animation: float 3s ease-in-out infinite;
             height: 50vh;
@@ -235,8 +226,7 @@ background:lightyellow;
             right: 0;
             margin-left: auto;
             margin-right: auto;
-
-opacity:.5;
+            opacity: .5;
             cursor: pointer;
             z-index: -2;
             animation-name: rotate;
@@ -259,30 +249,33 @@ opacity:.5;
         }
 
         @keyframes blink {
-        
             0% {
-                color:black;
-               
+                color: black;
             }
+
             50% {
                 color: var(--ikalabule);
-
-
             }
+
             100% {
-                color:black;
-
-
+                color: black;
             }
         }
 
 
         @keyframes forwardback {
-    0%   {  transform: scale(0.99,0.99);}
-    50%   {  transform: scale(1.01,1.01); }
-    100%   {  transform: scale(0.99,0.99); }
-}
+            0% {
+                transform: scale(0.99, 0.99);
+            }
 
+            50% {
+                transform: scale(1.01, 1.01);
+            }
+
+            100% {
+                transform: scale(0.99, 0.99);
+            }
+        }
     </style>
 </head>
 
@@ -291,18 +284,15 @@ opacity:.5;
 
 
     <div id="app">
-
         <transition name="fade">
-
             <div id="page-riddle" v-show="page==1" :class="{'shake' : animated}">
+
                 <b-container fluid>
                     <b-row>
                         <h1 class="title text-center w-100 "><img src="title.png" alt=""></h1>
                     </b-row>
                     <b-row class="m-2"></b-row>
-
                 </b-container>
-
 
                 <b-container class="centerking">
                     <b-row>
@@ -382,19 +372,17 @@ opacity:.5;
                             </b-tabs>
                         </b-col>
                     </b-row>
-
-
                 </b-container>
-
             </div>
         </transition>
 
         <transition name="fade">
-
             <div id="page-win" v-show="page==2">
                 <div class="foreground">
                     <b-container class="foreground">
-                        <b-row><button v-on:click="page=1" class="back-btn btn btn-lg align-right">🔙 回上頁</button>
+
+                        <b-row>
+                            <button v-on:click="page=1" class="back-btn btn btn-lg align-right">🔙 回上頁</button>
                         </b-row>
 
                         <b-row class="text-center">
@@ -409,77 +397,78 @@ opacity:.5;
                 </div>
             </div>
         </transition>
+    </div>
 
-        <script>
-            const buzzerSound = new Audio('buzzer.mp3');
-            const cheerSound = new Audio('cheer.wav');
+    <script>
+        const buzzerSound = new Audio('buzzer.mp3');
+        const cheerSound = new Audio('cheer.wav');
 
-            new Vue({
-                el: '#app',
-                data: {
-                    inputedPwd: [0, 0, 0, 0],
-                    correctPwd: {
-                        1: [4, 3, 2, 0],
-                        2: [1, 2, 8, 4],
-                        3: [1, 9, 4, 4],
-                        4: [6, 0, 4, 1],
-                        5: [1, 4, 0, 6],
-                        6: [5, 4, 1, 2],
-                        7: [1, 2, 5, 4],
-                        8: [1, 5, 1, 8],
-                        9: [1, 5, 7, 2],
-                        10: [7, 2, 1, 5],
-                        11: [2, 5, 8, 6],
-                        12: [4, 2, 1, 2],
-                        13: [6, 9, 2, 7],
-                        14: [2, 6, 0, 1],
-                        15: [7, 7, 7, 6]
-                    },
-                    teamIndex: 0,
-                    page: 1,
-                    animated: false
+        new Vue({
+            el: '#app',
+            data: {
+                inputedPwd: [0, 0, 0, 0],
+                correctPwd: {
+                    1: [4, 3, 2, 0],
+                    2: [1, 2, 8, 4],
+                    3: [1, 9, 4, 4],
+                    4: [6, 0, 4, 1],
+                    5: [1, 4, 0, 6],
+                    6: [5, 4, 1, 2],
+                    7: [1, 2, 5, 4],
+                    8: [1, 5, 1, 8],
+                    9: [1, 5, 7, 2],
+                    10: [7, 2, 1, 5],
+                    11: [2, 5, 8, 6],
+                    12: [4, 2, 1, 2],
+                    13: [6, 9, 2, 7],
+                    14: [2, 6, 0, 1],
+                    15: [7, 7, 7, 6]
                 },
-                methods: {
-                    onTabChange: function(){
-                        this.inputedPwd=[0,0,0,0];
-                    },
-                    changePwd: function (index, action) {
-                        if (action == "add") {
-                            if (this.inputedPwd[index] == 9) {
-                                this.$set(this.inputedPwd, index, 0)
-                            } else {
-                                this.$set(this.inputedPwd, index, this.inputedPwd[index] + 1)
-                            }
+                teamIndex: 0,
+                page: 1,
+                animated: false
+            },
+            methods: {
+                onTabChange: function () {
+                    this.inputedPwd = [0, 0, 0, 0];
+                },
+                changePwd: function (index, action) {
+                    if (action == "add") {
+                        if (this.inputedPwd[index] == 9) {
+                            this.$set(this.inputedPwd, index, 0)
                         } else {
-                            if (this.inputedPwd[index] == 0) {
-                                this.$set(this.inputedPwd, index, 9)
-                            } else {
-                                this.$set(this.inputedPwd, index, this.inputedPwd[index] - 1)
-                            }
+                            this.$set(this.inputedPwd, index, this.inputedPwd[index] + 1)
                         }
-                    },
-                    unlock: function () {
-                        const self = this;
-                        let count = 0;
-                        self.inputedPwd.forEach(function (pwd, index) {
-                            if (pwd == self.correctPwd[self.teamIndex + 1][index]) {
-                                count++;
-                            }
-                        });
-                        if (count == 4) { // 4 digit password are all correct
-                            self.page = 2; // change to page 2
-                            cheerSound.play();
+                    } else {
+                        if (this.inputedPwd[index] == 0) {
+                            this.$set(this.inputedPwd, index, 9)
                         } else {
-                            buzzerSound.play();
-                            self.animated = true
-                            setTimeout(() => {
-                                self.animated = false
-                            }, 400)
+                            this.$set(this.inputedPwd, index, this.inputedPwd[index] - 1)
                         }
-                    },
-                }
-            })
-        </script>
+                    }
+                },
+                unlock: function () {
+                    const self = this;
+                    let count = 0;
+                    self.inputedPwd.forEach(function (pwd, index) {
+                        if (pwd == self.correctPwd[self.teamIndex + 1][index]) {
+                            count++;
+                        }
+                    });
+                    if (count == 4) { // 4 digit password are all correct
+                        self.page = 2; // change to page 2
+                        cheerSound.play();
+                    } else {
+                        buzzerSound.play();
+                        self.animated = true
+                        setTimeout(() => {
+                            self.animated = false
+                        }, 400)
+                    }
+                },
+            }
+        })
+    </script>
 
 </body>
 
